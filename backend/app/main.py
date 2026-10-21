@@ -2,7 +2,7 @@
 import json
 from typing import Optional
 
-from fastapi import Body, FastAPI, File, Form, HTTPException, UploadFile
+from fastapi import Body, FastAPI, Form, HTTPException, UploadFile
 
 from app.config import settings
 from app.core.agent import UnknownAgentError, resolve_agent
@@ -61,6 +61,7 @@ def _report_gen_payload(payload: dict) -> dict:
 
     try:
         run_dir = run_gen_audit_from_path(image_path=image_path, theme=theme,
+                                          client=(payload.get("client") or "").strip(),
                                           ring_params=ring_params)
     except GenAuditError as exc:
         raise HTTPException(status_code=422, detail=str(exc)) from exc
@@ -141,7 +142,7 @@ async def report_qa_turns(report_id: str) -> dict:
 
 
 # ---- 本地工作台 UI（D-111，spec: docs/specs/ui-v1.md）----
-from app.ui_api import REPO_ROOT as _UI_ROOT, router as _ui_router
+from app.ui_api import REPO_ROOT as _UI_ROOT, router as _ui_router  # noqa: E402
 
 app.include_router(_ui_router)
 

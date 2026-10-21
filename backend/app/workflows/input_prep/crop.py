@@ -7,7 +7,6 @@
 
 from dataclasses import dataclass
 
-import cv2
 import numpy as np
 
 MARGIN = 0.03  # 圆外留边比例（3%）

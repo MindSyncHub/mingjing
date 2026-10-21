@@ -145,7 +145,7 @@ C. 本表是疗愈师终审的草稿，不是自动改卷；超纲清单每条�
 {draft}"""
 
 
-def run_gen_audit(image_path: Path, *, theme: str,
+def run_gen_audit(image_path: Path, *, theme: str, client: str = "",
                   runs_root: Path = REPO_ROOT / "runs",
                   original_path: Path | None = None) -> Path:
     """生成+校验 全流程，返回 run 目录。"""
@@ -191,7 +191,7 @@ def run_gen_audit(image_path: Path, *, theme: str,
         "status": "completed",
         "input": {"image_path": str(image_path),
                   "original_path": str(original_path) if original_path else None,
-                  "theme": theme},
+                  "theme": theme, "client": (client or "").strip()},
         "knowledge": {"manual": str(MANUAL_PATH), "ruler": str(RULER_PATH)},
         "models": {"generate": settings.kimi_model, "audit": settings.kimi_model},
         "token_usage": {"generate": gen_usage, "audit": audit_usage,
@@ -208,9 +208,9 @@ def run_gen_audit(image_path: Path, *, theme: str,
     return run_dir
 
 
-def run_gen_audit_from_path(*, image_path: str, theme: str,
+def run_gen_audit_from_path(*, image_path: str, theme: str, client: str = "",
                             ring_params: dict | None = None,
                             runs_root: Path = REPO_ROOT / "runs") -> Path:
     """main.py 调用入口。ring_params 兼容旧签名：gen-audit 架构不做程序化圈界，
     三圈由生成臂按手册'以神为准、买定离手'自行划分（标记线图则直接读标记线）。"""
-    return run_gen_audit(Path(image_path), theme=theme, runs_root=runs_root)
+    return run_gen_audit(Path(image_path), theme=theme, client=client, runs_root=runs_root)

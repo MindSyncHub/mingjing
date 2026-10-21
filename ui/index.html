@@ -4,165 +4,309 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>一镜一梳 · 明镜 — 疗愈师 AI 工作台</title>
-<link rel="stylesheet" href="/style.css?v=0.2.0">
+<link rel="stylesheet" href="/style.css?v=0.3.1">
 </head>
 <body>
-<header class="app-header">
-  <div class="brand">
-    <div class="kicker">MANDALA AI WORKBENCH</div>
-    <h1>一镜一梳 <span class="sub">明镜 · 疗愈师 AI 工作台</span></h1>
-  </div>
-  <span id="health" class="health">连接中…</span>
-</header>
+<div class="shell">
 
-<nav class="tabs">
-  <button class="tab active" data-tab="cases">个案</button>
-  <button class="tab" data-tab="new">新建个案</button>
-  <button class="tab" data-tab="qa">问答</button>
-  <button class="tab" data-tab="about">关于本项目</button>
-</nav>
-
-<main>
-  <!-- 个案（默认落点：列表 + 主区 + 证据审核栏） -->
-  <section id="tab-cases" class="view active">
-    <div class="split4" id="split4">
-      <div class="col-list">
-        <button id="list-collapse" class="mini" title="折叠/展开报告列表">⇤</button>
-        <aside id="report-list" class="list"></aside>
+  <!-- ============ 侧边导航 ============ -->
+  <aside class="sidebar" id="sidebar">
+    <div class="side-brand">
+      <span class="side-logo" data-mandala="34"></span>
+      <div class="side-title">
+        <div class="kicker">MANDALA AI WORKBENCH</div>
+        <h1>一镜一梳 · 明镜</h1>
       </div>
-      <div class="case-main">
-        <div id="report-head" class="detail">
-          <div class="empty-state">
-            <div class="glyph">◎</div>
-            <div class="title">选择一个个案查看报告</div>
-            <p class="desc">左侧是个案列表，带质量徽标；或在「新建个案」上传一幅曼陀罗开始解读。</p>
+    </div>
+
+    <nav class="side-nav" id="side-nav">
+      <div class="nav-group">工作台</div>
+      <button class="nav-item active" data-tab="home"><span class="ic" data-ic="home"></span><span class="ni-label">首页</span></button>
+      <button class="nav-item" data-tab="cases"><span class="ic" data-ic="cases"></span><span class="ni-label">个案</span></button>
+      <button class="nav-item" data-tab="qa"><span class="ic" data-ic="qa"></span><span class="ni-label">问答</span></button>
+
+      <div class="nav-group">服务</div>
+      <button class="nav-item" data-tab="clients"><span class="ic" data-ic="clients"></span><span class="ni-label">来访者</span><span class="nav-badge">规划中</span></button>
+
+      <div class="nav-group">成长</div>
+      <button class="nav-item" data-tab="review"><span class="ic" data-ic="review"></span><span class="ni-label">教学复盘</span><span class="nav-badge">规划中</span></button>
+      <button class="nav-item" data-tab="coaching"><span class="ic" data-ic="coaching"></span><span class="ni-label">私教陪跑</span><span class="nav-badge">规划中</span></button>
+
+      <div class="nav-group">系统</div>
+      <button class="nav-item" data-tab="agents"><span class="ic" data-ic="agents"></span><span class="ni-label">智能体</span><span class="nav-badge partial">部分可用</span></button>
+      <button class="nav-item" data-tab="knowledge"><span class="ic" data-ic="knowledge"></span><span class="ni-label">知识库</span></button>
+      <button class="nav-item" data-tab="eval"><span class="ic" data-ic="eval"></span><span class="ni-label">质量评测</span><span class="nav-badge partial">部分可用</span></button>
+
+      <div class="nav-group">项目</div>
+      <button class="nav-item" data-tab="about"><span class="ic" data-ic="about"></span><span class="ni-label">关于本项目</span></button>
+    </nav>
+
+    <div class="side-foot">
+      <span id="health" class="health"><span class="dot"></span><span class="hl-label">连接中…</span></span>
+      <button id="side-collapse" class="side-collapse" title="收起 / 展开导航" aria-label="收起导航"></button>
+    </div>
+  </aside>
+
+  <!-- ============ 主区 ============ -->
+  <main>
+
+    <!-- 首页 dashboard -->
+    <section id="tab-home" class="view active">
+      <div class="home-hero">
+        <div class="hh-text">
+          <div class="kicker" id="home-date"></div>
+          <h2 id="home-greet">你好，疗愈师</h2>
+          <p class="hh-sub">明镜是你的 AI 搭档：曼陀罗解读、报告问答已上线；来访者、复盘、陪跑在规划里——工作台和你一起长大。</p>
+          <div class="quick">
+            <button class="btn-primary" data-go="new"><span class="ic" data-ic="plus"></span>新建个案</button>
+            <button class="btn-secondary" data-go="qa">继续问答</button>
+            <button class="btn-secondary" data-go="knowledge">浏览知识图谱</button>
           </div>
         </div>
-        <div id="report-detail" class="detail hidden"><div id="trace-box"></div></div>
-      </div>
-      <aside id="trace-panels" class="panels hidden"></aside>
-    </div>
-  </section>
-
-  <!-- 新建个案（两步引导） -->
-  <section id="tab-new" class="view">
-    <div class="card step-card">
-      <div class="step-tag"><span class="step-num">STEP 1 / 2</span><span class="step-line"></span></div>
-      <h2>上传曼陀罗照片</h2>
-      <label class="final-check"><input type="checkbox" id="final-toggle">
-        照片已含三圈标记 / 已定稿（跳过自动预处理，不画叠加圈）</label>
-      <input type="file" id="photo" accept="image/*">
-      <div id="prep-status" class="status"></div>
-      <div id="prep-result" class="hidden">
-        <img id="prep-overlay" class="preview" alt="预处理叠加图">
-        <p class="hint">绿圈 = 基准圆；蓝圈 = 提议圈界。参数可手改：</p>
-        <div class="grid5">
-          <label>圆心 cx <input id="p-cx" type="number"></label>
-          <label>圆心 cy <input id="p-cy" type="number"></label>
-          <label>外半径 R <input id="p-radius" type="number"></label>
-          <label>r1 占比 <input id="p-r1" type="number" step="0.01" min="0.05" max="0.95"></label>
-          <label>r2 占比 <input id="p-r2" type="number" step="0.01" min="0.05" max="0.95"></label>
-        </div>
-      </div>
-    </div>
-    <div class="card step-card">
-      <div class="step-tag"><span class="step-num">STEP 2 / 2</span><span class="step-line"></span></div>
-      <h2>来访者信息</h2>
-      <label>主题（必填）<input id="theme" placeholder="本次绘画想探索的问题"></label>
-      <label>背景（可选）<input id="background" placeholder="绘画时的状态、性别年龄等"></label>
-      <button id="btn-gen" class="primary" disabled>生成报告</button>
-      <div id="gen-status" class="status"></div>
-      <div id="gen-progress" class="gen-progress hidden">
-        <div class="bar skeleton"></div>
-        <div class="stage">报告生成中：视觉模型读图 → 合规核查，通常 1–3 分钟…</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 问答 -->
-  <section id="tab-qa" class="view">
-    <div class="card">
-      <div class="grid2">
-        <label>报告 <select id="qa-report"></select></label>
-        <label>场景
-          <select id="qa-scenario">
-            <option value="advisor">解读参谋</option>
-            <option value="reply_prep">应答准备</option>
-          </select>
-        </label>
-      </div>
-    </div>
-    <div id="qa-flow" class="flow"></div>
-    <div class="card ask">
-      <textarea id="qa-question" rows="2" placeholder="输入问题…"></textarea>
-      <button id="btn-ask" class="primary">提问</button>
-    </div>
-  </section>
-
-  <!-- 关于本项目（静态叙事页，录屏收尾画面） -->
-  <section id="tab-about" class="view">
-    <div class="about">
-      <div class="hero-card">
-        <div class="kicker">MANDALA AI WORKBENCH</div>
-        <h1>明镜</h1>
-        <div class="sub">疗愈师端 AI 工作台 · 曼陀罗解读报告生成 + 报告问答</div>
+        <div class="hh-mandala" data-mandala="150"></div>
       </div>
 
-      <section>
-        <h2>这是什么</h2>
-        <p>明镜是一个 localhost 单用户的疗愈师工作台：上传一幅曼陀罗绘画，视觉模型生成解读报告，
-        第二条 AI 链路对报告做合规红线与「超纲」核查，疗愈师终审后交付。
-        定位是<strong>辅助工具</strong>——不做诊断、不做承诺，最终判断永远在疗愈师。</p>
-      </section>
-
-      <section>
-        <h2>架构：通用底座 + 流派插件 + 工作流</h2>
-        <ul>
-          <li><strong>输入预处理</strong>：OpenCV 确定性流水线（矫正 → 裁切 → 基准圆检测 → 圈界提议），不经 AI——确定性问题交给代码</li>
-          <li><strong>报告生成</strong>：gen-audit 三步链（生成 → 合规与超纲核查 → 确定性渲染），每步 prompt 与产物全量落盘可追溯</li>
-          <li><strong>报告问答</strong>：基于报告内容的疗愈师问答助手（解读参谋 / 应答准备两场景），回答带规则引文</li>
-        </ul>
-      </section>
-
-      <section>
-        <h2>质量与评估</h2>
-        <div class="metrics">
-          <div class="metric-tile"><b>112 问</b><span>问答评测实测规模（106 出分）</span></div>
-          <div class="metric-tile"><b>4.94 / 5</b><span>回答锚定率（LLM judge）</span></div>
-          <div class="metric-tile"><b>0 / 38</b><span>安全越界专项违规</span></div>
-          <div class="metric-tile"><b>8.4s</b><span>单轮延迟 P95（18 问轮）</span></div>
-          <div class="metric-tile"><b>10 组</b><span>黄金集定稿图（三层评定）</span></div>
-          <div class="metric-tile"><b>129</b><span>后端自动化测试</span></div>
+      <div class="home-grid">
+        <div class="card">
+          <div class="card-head">
+            <h3>最近个案</h3>
+            <button class="btn-ghost" data-go="cases">全部<span class="ic" data-ic="arrow"></span></button>
+          </div>
+          <div id="home-recent" class="home-recent"><p class="hint">加载中…</p></div>
         </div>
-        <p class="hint">评测定稿三层：红线回归 / 核心结论一致性 &gt;80% / 疗愈师人工终审。所有数字可溯源到 eval-results 实验留痕。</p>
-      </section>
-
-      <section>
-        <h2>工程决策精选</h2>
-        <div class="decision">
-          <b>D-013 · 审计臂管辖权收窄</b>
-          <p>审计臂曾同时审「合规」与「质量」，实测假阳性率 94%——收窄为只审合规红线与超纲采掘，质量判断交还疗愈师。</p>
+        <div class="card">
+          <div class="card-head"><h3>AI 课程</h3><span class="chip chip-live">引流主线</span></div>
+          <div class="course">
+            <div class="course-row">
+              <div class="course-name">课1 · 安顿内在——自我疗愈入门</div>
+              <span class="chip chip-live">已上线</span>
+            </div>
+            <p class="hint">「一镜一梳」healing-courses 主线课，面向大众引流，承接个案与私教。</p>
+            <div class="course-row">
+              <div class="course-name">课2 · 进阶专题</div>
+              <span class="chip chip-plan">筹备中</span>
+            </div>
+            <p class="hint">进阶课程待推进，与本工作台的个案沉淀互相喂养。</p>
+          </div>
         </div>
-        <div class="decision">
-          <b>D-015 → D-016 · 撤销自己的决策</b>
-          <p>三层评定的「锚定事实层」上线三天后被证明不可维护，新增 D-016 正式撤销 D-015——决策日志保留完整时间线，不掩饰。</p>
-        </div>
-        <div class="decision">
-          <b>D-111 · 零框架零构建</b>
-          <p>本界面无 React、无 npm、无 CDN——一个 uvicorn 进程托管全部静态文件与 API。刻意约束，知道什么时候不引入复杂度。</p>
-        </div>
-      </section>
+      </div>
 
-      <section>
-        <h2>边界与隐私</h2>
-        <p>所有 AI 输出遵守：不做诊断 / 不做承诺 / 不越界 / 危机信号立即转介。
-        评测画作图像不进入版本库；来访者个案数据不离开本机。
-        AI 是辅助工具，最终判断在疗愈师。</p>
-      </section>
-    </div>
-  </section>
-</main>
+      <div class="card">
+        <div class="card-head"><h3>产品地图</h3><span class="hint-inline">来访者为中心 · 智能体为工具 · 知识库为底座</span></div>
+        <div class="pmap">
+          <img class="pmap-img" src="/assets/product-map.jpg"
+               alt="产品地图：AI 课程获客 → 预约 → 个案进行 → 跟进 → 成长，底座是知识库">
+          <div class="pmap-base">
+            <span class="chip chip-live">已上线：解读 / 问答 / 知识图谱</span>
+            <span class="chip chip-plan">规划中：来访者 · 教学复盘 · 私教陪跑 · 质量面板</span>
+          </div>
+        </div>
+      </div>
+    </section>
 
-<script src="/app.js?v=0.2.0"></script>
+    <!-- 个案（列表 + 主区 + 证据审核栏） -->
+    <section id="tab-cases" class="view">
+      <div class="split4" id="split4">
+        <div class="col-list">
+          <div class="list-bar">
+            <button class="btn-primary btn-block" data-go="new"><span class="ic" data-ic="plus"></span>新建个案</button>
+            <button id="list-collapse" class="icon-btn" title="折叠/展开个案列表"></button>
+          </div>
+          <aside id="report-list" class="list"></aside>
+        </div>
+        <div class="case-main">
+          <div id="report-head" class="detail">
+            <div class="empty-state">
+              <div class="glyph" data-mandala="72"></div>
+              <div class="title">选择一个个案查看报告</div>
+              <p class="desc">从个案列表选择一个查看报告与追溯链；或点「新建个案」上传一幅曼陀罗开始解读。</p>
+            </div>
+          </div>
+          <div id="report-detail" class="detail hidden"><div id="trace-box"></div></div>
+        </div>
+        <aside id="trace-panels" class="panels hidden"></aside>
+      </div>
+    </section>
+
+    <!-- 新建个案（两步引导） -->
+    <section id="tab-new" class="view">
+      <div class="narrow">
+        <button class="back-link" data-go="cases"><span class="ic" data-ic="back"></span>返回个案列表</button>
+        <div class="card step-card">
+          <div class="step-tag"><span class="step-num">STEP 1 / 2</span><span class="step-line"></span></div>
+          <h2>上传曼陀罗照片</h2>
+          <label class="final-check" for="final-toggle">
+            <input type="checkbox" id="final-toggle"><span class="box"></span>
+            <span>照片上已画好三个圈（内 / 中 / 外圈线）——勾选后跳过自动圈界检测
+              <span class="check-hint">不确定就不要勾，让程序自己找圈</span></span>
+          </label>
+          <div class="dropzone" id="dropzone" role="button" tabindex="0">
+            <input type="file" id="photo" accept="image/*" class="visually-hidden" tabindex="-1">
+            <div class="dz-inner" id="dz-inner">
+              <span class="dz-icon" data-mandala="44"></span>
+              <span class="dz-text">点击选择，或把照片拖到这里</span>
+              <span class="dz-hint">支持常见图片格式；原始照片将自动矫正与圈界检测</span>
+            </div>
+            <div class="dz-preview hidden" id="dz-preview">
+              <img id="dz-thumb" alt="已选照片预览">
+              <div class="dz-meta"><span id="dz-name"></span><span class="dz-replace">点击更换</span></div>
+            </div>
+          </div>
+          <div id="prep-status" class="status"></div>
+          <div id="prep-result" class="hidden">
+            <img id="prep-overlay" class="preview" alt="预处理叠加图">
+            <p class="hint">绿圈 = 基准圆；蓝圈 = 提议圈界。</p>
+            <details class="params-fold">
+              <summary>手动微调圈界（一般不用动）</summary>
+              <p class="hint">绿圈蓝圈位置不对时才需要改；不确定就保持自动检测结果，留空由程序估计。</p>
+              <div class="grid5">
+                <label>圆心横坐标 <input id="p-cx" type="number"></label>
+                <label>圆心纵坐标 <input id="p-cy" type="number"></label>
+                <label>外圈半径 <input id="p-radius" type="number"></label>
+                <label>内圈比例 <input id="p-r1" type="number" step="0.01" min="0.05" max="0.95"></label>
+                <label>中圈比例 <input id="p-r2" type="number" step="0.01" min="0.05" max="0.95"></label>
+              </div>
+            </details>
+          </div>
+        </div>
+        <div class="card step-card">
+          <div class="step-tag"><span class="step-num">STEP 2 / 2</span><span class="step-line"></span></div>
+          <h2>来访者信息</h2>
+          <label>来访者称呼（可选）<input id="client" placeholder="怎么称呼这位来访者，如：小林"></label>
+          <label>主题（必填）<input id="theme" placeholder="本次绘画想探索的问题"></label>
+          <label>背景（可选）<input id="background" placeholder="绘画时的状态、性别年龄等"></label>
+          <button id="btn-gen" class="btn-primary" disabled>生成报告</button>
+          <div id="gen-guide" class="gen-guide">先在第 1 步上传照片</div>
+          <div id="gen-status" class="status"></div>
+          <div id="gen-progress" class="gen-progress hidden">
+            <div class="gen-mandala" data-mandala="56"></div>
+            <div class="gen-text">
+              <div class="bar skeleton"></div>
+              <div class="stage">报告生成中：视觉模型读图 → 合规核查，通常 1–3 分钟…</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 问答 -->
+    <section id="tab-qa" class="view">
+      <div class="narrow">
+        <div class="card qa-picker">
+          <div class="grid2">
+            <label>报告
+              <span class="select-wrap"><select id="qa-report"></select></span>
+            </label>
+            <label>场景
+              <span class="select-wrap"><select id="qa-scenario">
+                <option value="advisor">解读参谋</option>
+                <option value="reply_prep">应答准备</option>
+              </select></span>
+            </label>
+          </div>
+        </div>
+        <div id="qa-flow" class="flow"></div>
+        <div class="card ask">
+          <textarea id="qa-question" rows="2" placeholder="输入问题…"></textarea>
+          <button id="btn-ask" class="btn-primary">提问</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 规划中模块（内容由 JS 模板渲染） -->
+    <section id="tab-clients" class="view"></section>
+    <section id="tab-review" class="view"></section>
+    <section id="tab-coaching" class="view"></section>
+    <section id="tab-agents" class="view"></section>
+    <section id="tab-eval" class="view"></section>
+
+    <!-- 知识库（live：概览 + 图谱嵌入） -->
+    <section id="tab-knowledge" class="view">
+      <div class="card kb-head">
+        <div>
+          <h3>疗愈知识库</h3>
+          <p class="hint">所有智能体共享的领域底座：本体语义层 + 流派知识包。图谱可视化是可交互的——拖动节点、点击节点或边看机制说明。</p>
+        </div>
+        <div class="kb-stats">
+          <div class="metric-tile"><b>23</b><span>状态节点</span></div>
+          <div class="metric-tile"><b>44</b><span>因果边</span></div>
+          <div class="metric-tile"><b>4</b><span>层级</span></div>
+        </div>
+      </div>
+      <div class="card kb-graph">
+        <iframe id="kg-frame" title="知识图谱可视化" loading="lazy"></iframe>
+      </div>
+    </section>
+
+    <!-- 关于本项目（静态叙事页，录屏收尾画面） -->
+    <section id="tab-about" class="view">
+      <div class="about">
+        <div class="hero-card">
+          <div class="hero-mandala" data-mandala="120"></div>
+          <div class="kicker">MANDALA AI WORKBENCH</div>
+          <h1>明镜</h1>
+          <div class="sub">疗愈师端 AI 工作台 · 曼陀罗解读报告生成 + 报告问答</div>
+        </div>
+
+        <section>
+          <h2>这是什么</h2>
+          <p>明镜是一个 localhost 单用户的疗愈师工作台：上传一幅曼陀罗绘画，视觉模型生成解读报告，
+          第二条 AI 链路对报告做合规红线与「超纲」核查，疗愈师终审后交付。
+          定位是<strong>辅助工具</strong>——不做诊断、不做承诺，最终判断永远在疗愈师。</p>
+        </section>
+
+        <section>
+          <h2>架构：通用底座 + 流派插件 + 工作流</h2>
+          <img class="arch-img" src="/assets/gen-audit-pipeline.jpg"
+               alt="gen-audit 三步链：画作上传 → 报告生成 → 合规核查 → 渲染交付">
+          <ul>
+            <li><strong>输入预处理</strong>：OpenCV 确定性流水线（矫正 → 裁切 → 基准圆检测 → 圈界提议），不经 AI——确定性问题交给代码</li>
+            <li><strong>报告生成</strong>：gen-audit 三步链（生成 → 合规与超纲核查 → 确定性渲染），每步 prompt 与产物全量落盘可追溯</li>
+            <li><strong>报告问答</strong>：基于报告内容的疗愈师问答助手（解读参谋 / 应答准备两场景），回答带规则引文</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>质量与评估</h2>
+          <div class="metrics">
+            <div class="metric-tile"><b>112 问</b><span>问答评测实测规模（106 出分）</span></div>
+            <div class="metric-tile"><b>4.94 / 5</b><span>回答锚定率（LLM judge）</span></div>
+            <div class="metric-tile"><b>0 / 38</b><span>安全越界专项违规</span></div>
+            <div class="metric-tile"><b>8.4s</b><span>单轮延迟 P95（18 问轮）</span></div>
+            <div class="metric-tile"><b>10 组</b><span>黄金集定稿图（三层评定）</span></div>
+            <div class="metric-tile"><b>131</b><span>后端自动化测试</span></div>
+          </div>
+          <p class="hint">评测定稿三层：红线回归 / 核心结论一致性 &gt;80% / 疗愈师人工终审。所有数字可溯源到 eval-results 实验留痕。</p>
+        </section>
+
+        <section>
+          <h2>工程决策精选</h2>
+          <div class="decision">
+            <b>D-013 · 审计臂管辖权收窄</b>
+            <p>审计臂曾同时审「合规」与「质量」，实测假阳性率 94%——收窄为只审合规红线与超纲采掘，质量判断交还疗愈师。</p>
+          </div>
+          <div class="decision">
+            <b>D-015 → D-016 · 撤销自己的决策</b>
+            <p>三层评定的「锚定事实层」上线三天后被证明不可维护，新增 D-016 正式撤销 D-015——决策日志保留完整时间线，不掩饰。</p>
+          </div>
+          <div class="decision">
+            <b>D-111 · 零框架零构建</b>
+            <p>本界面无 React、无 npm、无 CDN——一个 uvicorn 进程托管全部静态文件与 API。刻意约束，知道什么时候不引入复杂度。</p>
+          </div>
+        </section>
+
+        <section>
+          <h2>边界与隐私</h2>
+          <p>所有 AI 输出遵守：不做诊断 / 不做承诺 / 不越界 / 危机信号立即转介。
+          评测画作图像不进入版本库；来访者个案数据不离开本机。
+          AI 是辅助工具，最终判断在疗愈师。</p>
+        </section>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script src="/app.js?v=0.3.1"></script>
 </body>
 </html>

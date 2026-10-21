@@ -1,0 +1,15 @@
+# guizang 插图 prompt 留痕（明镜 UI）
+
+model: gpt-image-2 · size 1520x800 · quality low
+
+## gen-audit-pipeline
+
+```
+Use case: stylized-concept. Asset type: wide horizontal 1.9:1 labeled material illustration for a product page explaining an AI report pipeline. Primary request: A mandala painting (circular artwork on paper) enters on the left, passes through three stations left-to-right: a fountain pen writing a document (report drafting), a magnifying glass inspecting the document with a small shield (compliance check), and a neatly bound booklet with a gold seal (final rendered report). Each station is a small pedestal with subtle 3D depth. Chinese labels: Add four short Simplified Chinese labels as clean printed callouts inside the illustration: "画作上传", "报告生成", "合规核查", "渲染交付". Place each label near the matching object; keep labels horizontal, large, high-contrast, readable, away from edges. Style/medium: clean Swiss editorial 3D vector-like illustration, off-white background, black ink lines, refined gray surfaces, one vivid antique-gold accent (#C08F2E). Lighting/mood: crisp studio light, calm analytical mood. Composition/framing: wide 1.9:1 composition, subject fills the width naturally, centered vertically, generous safe margins on all sides, full subject visible, no crop. Constraints: no extra words beyond the specified Chinese labels, no English labels, no numbers, no logo, no watermark, no poster frame, no page title, no decorative blobs, no gradient background.
+```
+
+## product-map
+
+```
+Use case: stylized-concept. Asset type: wide horizontal 1.9:1 labeled material illustration for a product roadmap page of a therapist AI workbench. Primary request: A left-to-right journey of five small stations on a shared foundation platform: an open book (AI course), a calendar with a small bell (booking), a circular mandala artwork on an easel with a chat bubble (session in progress, the hero station, slightly larger, gold accent), a handshake token (follow-up), and a small sprouting plant (growth). The foundation platform below them is a calm grid slab labeled as knowledge base. Chinese labels: Add five short Simplified Chinese labels as clean printed callouts inside the illustration: "AI课程", "预约", "个案进行", "跟进", "成长". Place each label near the matching object; keep labels horizontal, large, high-contrast, readable, away from edges. Style/medium: clean Swiss editorial 3D vector-like illustration, off-white background, black ink lines, refined gray surfaces, one vivid antique-gold accent (#C08F2E). Lighting/mood: crisp studio light, calm analytical mood. Composition/framing: wide 1.9:1 composition, subject fills the width naturally, centered vertically, generous safe margins on all sides, full subject visible, no crop. Constraints: no extra words beyond the specified Chinese labels, no English labels, no numbers, no logo, no watermark, no poster frame, no page title, no decorative blobs, no gradient background.
+```

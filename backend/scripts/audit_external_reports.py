@@ -3,15 +3,16 @@
     python scripts/audit_external_reports.py --cases 001,002
 """
 from __future__ import annotations
-import argparse, sys, time
+import argparse
+import sys
 from pathlib import Path
 
 BACKEND_DIR = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(BACKEND_DIR))
-import os
+import os  # noqa: E402
 os.chdir(BACKEND_DIR)
 
-from scripts.blind_cases_runner import MANUAL, OUT_ROOT, _vl_call  # noqa: E402
+from scripts.blind_cases_runner import MANUAL, OUT_ROOT, _vl_call  # noqa: E402  # noqa: E402
 
 AUDIT_TMPL = """你是一名严格的曼陀罗解读评审。附件是一幅曼陀罗（三圈已由疗愈师用标记线圈定，标记线不是画作内容）、《曼陀罗解读手册》原文，以及另一位疗愈师对这幅画写的解读报告初稿。
 
@@ -62,7 +63,8 @@ def main() -> int:
         for ext in ("jpg", "png"):
             p = ASSETS / f"case-{cid}-mandala-3q.{ext}"
             if p.exists():
-                img = p; break
+                img = p
+                break
         assert img, f"case-{cid} 缺图"
         for report in sorted(rounds.glob("*.md")):
             name = report.stem
@@ -76,7 +78,6 @@ def main() -> int:
             if not draft.strip():
                 print(f"[skip] {report.name} 空文件")
                 continue
-            t0 = time.perf_counter()
             audit, usage, ms = _vl_call(AUDIT_TMPL.format(manual=manual, draft=draft), img)
             out.write_text(audit, encoding="utf-8")
             print(f"[ok] case-{cid} {name} 审计 {ms}ms usage={usage}")

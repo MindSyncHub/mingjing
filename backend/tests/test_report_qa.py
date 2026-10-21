@@ -543,7 +543,7 @@ def test_reason_chain_by_state_id():
 def test_reason_chain_by_imbalance_name():
     import tempfile
     with tempfile.TemporaryDirectory() as td:
-        run_dir = _make_dir(Path(td)) if False else _make_run(Path(td))
+        run_dir = _make_run(Path(td))
         chain = qt.reason_chain(run_dir, "火乘金")
     assert chain[0]["layer"] == "信号" and chain[0]["items"][0]["id"] == "V-001"
     assert chain[1]["items"][0]["cause"] == "火"

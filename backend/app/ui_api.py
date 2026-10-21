@@ -15,6 +15,9 @@ from fastapi.responses import FileResponse
 REPO_ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_RUNS_ROOT = REPO_ROOT / "runs"
 DEFAULT_PREP_OUT = REPO_ROOT / "state/input-prep-ui"
+# ranran 仓根（knowledge/ 所在层）：知识图谱可视化单文件，只读伺服（D-019）
+RANRAN_ROOT = Path(__file__).resolve().parents[4]
+KNOWLEDGE_GRAPH_HTML = RANRAN_ROOT / "knowledge" / "healing" / "本体" / "语义层" / "graph.html"
 
 router = APIRouter(prefix="/ui", tags=["ui"])
 
@@ -52,6 +55,7 @@ def _report_summary(run_dir: Path) -> dict[str, Any]:
         "report_id": meta.get("report_id") or run_dir.name,
         "status": meta.get("status", "unknown"),
         "theme": inp.get("theme") or "",
+        "client": inp.get("client") or "",
         "started_at": meta.get("started_at", ""),
         "elapsed_ms": meta.get("elapsed_ms"),
         "edited_at": meta.get("edited_at"),
@@ -167,6 +171,7 @@ def get_trace(report_id: str, *, runs_root: Path = DEFAULT_RUNS_ROOT) -> dict[st
             "warnings": meta.get("warnings") or [],
             "image_path": inp.get("image_path") or "",
             "theme": inp.get("theme") or "",
+        "client": inp.get("client") or "",
         },
         "perception_md": _read_text(run_dir / "perception.md"),
         "observations": observations_doc.get("observations") or [],
@@ -310,7 +315,8 @@ def run_input_prep(photo: UploadFile, *, out_dir: Path = DEFAULT_PREP_OUT) -> di
 
     def _decode(data: bytes):
         from PIL import Image, ImageOps
-        import io, numpy as np
+        import io
+        import numpy as np
         with Image.open(io.BytesIO(data)) as im:
             im = ImageOps.exif_transpose(im)
             return cv2.cvtColor(np.array(im.convert('RGB')), cv2.COLOR_RGB2BGR)
@@ -356,7 +362,7 @@ def run_input_prep(photo: UploadFile, *, out_dir: Path = DEFAULT_PREP_OUT) -> di
 
 # ---------- 审核备注（v0.1.2）：review.json 随 run 目录走 ----------
 
-import re as _re
+import re as _re  # noqa: E401, E402
 
 _REVIEW_KEY_RE = _re.compile(r"^(general|(obs|claim|hyp|flag|sig):[\w.\-:]{0,119}[\w.\-])$")
 
@@ -400,6 +406,14 @@ def upsert_review_item(report_id: str, key: str, checked: bool | None, note: str
 
 
 # ---------- HTTP 路由 ----------
+
+@router.get("/knowledge-graph")
+async def ui_knowledge_graph():
+    """知识图谱可视化（graph.html 单文件，只读伺服；源文件在 ranran 仓 knowledge/healing/本体/语义层/）。"""
+    if not KNOWLEDGE_GRAPH_HTML.is_file():
+        raise HTTPException(status_code=404, detail="知识图谱文件不存在（knowledge/healing/本体/语义层/graph.html）")
+    return FileResponse(KNOWLEDGE_GRAPH_HTML)
+
 
 @router.get("/reports")
 async def ui_reports() -> list[dict[str, Any]]:

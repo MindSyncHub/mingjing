@@ -58,6 +58,21 @@ def test_list_reports_sorted_desc_with_flags(runs_root):
     assert rows[0]["g1"]["needs_review"] is False
 
 
+def test_client_field_exposed_with_legacy_fallback(runs_root):
+    """UI-015：来访者称呼进 run.json input.client 后，列表与详情都暴露；存量 run 无该字段 → 空串。"""
+    run_dir = runs_root / "R-20260929T020000Z-cccccc"
+    _write_run(run_dir, None, started_at="2026-09-29T02:00:00+00:00")
+    meta = json.loads((run_dir / "run.json").read_text(encoding="utf-8"))
+    meta["input"]["client"] = "小满"
+    (run_dir / "run.json").write_text(json.dumps(meta, ensure_ascii=False), encoding="utf-8")
+
+    rows = list_reports(runs_root=runs_root)
+    assert rows[0]["client"] == "小满"           # 最新 run 排最前
+    assert rows[1]["client"] == ""               # 存量 run 向后兼容
+    detail = get_report_detail("R-20260929T020000Z-cccccc", runs_root=runs_root)
+    assert detail["client"] == "小满"
+
+
 def test_list_reports_empty_dir(tmp_path):
     assert list_reports(runs_root=tmp_path) == []
 
@@ -339,3 +354,11 @@ def test_perception_score_no_truth_returns_none(tmp_path, monkeypatch):
     run = tmp_path / "runs" / "R-score-003"
     _write_scored_run(run, "IMG_NOPE.jpeg", "任何描述")
     assert perception_eval.score_run(run, "IMG_NOPE.jpeg") is None
+
+
+def test_knowledge_graph_file_present():
+    """UI-014：知识库页的图谱嵌入依赖该文件存在；路径拼错时这里先红。"""
+    from app.ui_api import KNOWLEDGE_GRAPH_HTML
+    assert KNOWLEDGE_GRAPH_HTML.is_file(), f"图谱文件不存在：{KNOWLEDGE_GRAPH_HTML}"
+    assert "canvas" in KNOWLEDGE_GRAPH_HTML.read_text(encoding="utf-8").lower()
+
