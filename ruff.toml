@@ -1,0 +1,6 @@
+# OSS 仓 lint 门口径：经典默认规则集，与 CI（GitHub Actions）保持一致。
+# 显式声明是因为新版 ruff 的默认规则集会随版本扩张，写死才确定。
+target-version = "py311"
+
+[lint]
+select = ["E4", "E7", "E9", "F"]
