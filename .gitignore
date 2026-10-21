@@ -1,0 +1,17 @@
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+node_modules/
+.env
+.env.*
+!.env.example
+runs/
+eval-runs/
+eval-results/
+state/
+samples/
+eval/golden-set/images/
+.pytest_cache/
+.DS_Store
+*.log

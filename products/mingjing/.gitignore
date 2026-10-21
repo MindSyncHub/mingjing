@@ -1,0 +1,13 @@
+.DS_Store
+state
+*.sz
+*.mp4
+*.zip
+参考公众号/
+samples/
+eval/golden-set/images/
+backend/.venv
+__pycache__/
+*.pyc
+.env
+runs

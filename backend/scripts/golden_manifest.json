@@ -1,0 +1,107 @@
+{
+    "images": [
+        {
+            "image_id": "m01",
+            "image_path": "state/rectify-preview/m01_cropped.jpg",
+            "theme": "自我成长与当下状态",
+            "circles": {
+                "cx": 623,
+                "cy": 642,
+                "r1": 168,
+                "r2": 360,
+                "r3": 600
+            },
+            "human_gold": null,
+            "must_catch": [
+                "外圈深绿边环单独报出（与内圈中心绿构成由内到外的呼应）",
+                "中圈同色多块切分：红/蓝互不相邻多块须分报（红①/红②、蓝①/蓝②），相邻按切分后块对判断",
+                "中圈橙色卷草纹报出（形态承载色块，权重上调）",
+                "点缀级色块（内圈蓝黑小点）不参与失衡：不出火多水灼",
+                "火多木焚应判出：内圈红色花团对中心绿星（绿星虽少量但有分量）",
+                "内圈橙色撇状/眉毛状两撇按一组报一块（成对小组例外）"
+            ]
+        },
+        {
+            "image_id": "IMG_5601",
+            "image_path": "state/rectify-preview/IMG_5601_cropped.jpg",
+            "theme": null,
+            "circles": null,
+            "human_gold": null
+        },
+        {
+            "image_id": "IMG_5602",
+            "image_path": "state/rectify-preview/IMG_5602_cropped.jpg",
+            "theme": null,
+            "circles": null,
+            "human_gold": null
+        },
+        {
+            "image_id": "IMG_5605",
+            "image_path": "state/rectify-preview/IMG_5605_cropped.jpg",
+            "theme": null,
+            "circles": null,
+            "human_gold": null
+        },
+        {
+            "image_id": "IMG_5606",
+            "image_path": "state/rectify-preview/IMG_5606_cropped.jpg",
+            "theme": null,
+            "circles": null,
+            "human_gold": null
+        },
+        {
+            "image_id": "m03-marked",
+            "image_path": "state/rectify-preview/m03-marked_cropped.jpg",
+            "theme": "综合状态",
+            "circles": {
+                "cx": 804,
+                "cy": 808,
+                "r1": 300,
+                "r2": 492,
+                "r3": 792
+            },
+            "human_gold": null,
+            "must_catch": [
+                "紫色小圆点位于最外缘波浪底带（外侧仅粉色细环+绿色细环）——D-01 边缘织边式 vs 环带内部散布的边界判例",
+                "深蓝长条块四斜角报出（画面中除线稿外最深色）",
+                "黄色花瓣尖浓根淡渐变报出"
+            ]
+        },
+        {
+            "image_id": "m02",
+            "image_path": "state/rectify-preview/m02_cropped.jpg",
+            "theme": "事业与财富",
+            "circles": {
+                "cx": 808,
+                "cy": 796,
+                "r1": 272,
+                "r2": 502,
+                "r3": 788
+            },
+            "human_gold": null,
+            "must_catch": [
+                "红色标记线识别并排除（非蓝色标记的泛化判例）",
+                "最外环叶形花环带 = 最外缘一整圈连续装饰，按 D-097 裁决应命中 D-01 漏财直断",
+                "金多木折按高频直断豁免档位门槛（accepted），但金方证据仅中心白环少量级——结论方向请疗愈师复核"
+            ]
+        },
+        {
+            "image_id": "m04",
+            "image_path": "state/rectify-preview/m04_cropped.jpg",
+            "theme": "情感关系",
+            "circles": {
+                "cx": 795,
+                "cy": 804,
+                "r1": 148,
+                "r2": 450,
+                "r3": 788
+            },
+            "human_gold": null,
+            "must_catch": [
+                "标记泄漏哨兵：水的证据不得引用圆线色块；observations.marker_line_blocks 应登记被排除的圆线（D-097 几何排除生效标志）",
+                "白色圆环带为金的真实证据（与 5079 假金证据对照）",
+                "大面积留白画面的感知与解读"
+            ]
+        }
+    ]
+}
