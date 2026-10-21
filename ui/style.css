@@ -469,7 +469,17 @@ details.flash { outline: 2px solid var(--gold); outline-offset: 2px; }
 .rv-status.err { color: var(--red); }
 
 /* ================= 11. 问答 ================= */
-.qa-picker { padding-bottom: 8px; }
+/* 两栏：左参考（画作+报告原文，sticky），右对话（v0.3.2，看着报告提问） */
+.qa-split { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  gap: 18px; align-items: start; }
+.qa-ref { position: sticky; top: 24px; margin-bottom: 0; }
+.qa-painting { display: block; width: 148px; margin: 4px auto 12px; border-radius: var(--r-s);
+  border: 1px solid var(--line); box-shadow: var(--sh-1); cursor: zoom-in; }
+.qa-report-frame { width: 100%; height: 58vh; border: 1px solid var(--line);
+  border-radius: var(--r-s); background: var(--paper); display: block; }
+.qa-md-fallback { max-height: 58vh; overflow-y: auto; border: 1px solid var(--line);
+  border-radius: var(--r-s); padding: 8px 14px; background: var(--paper); }
+.qa-chat { min-width: 0; }
 .flow { margin-bottom: 16px; max-width: 60em; }
 .turn { margin-bottom: 18px; animation: fadein .25s ease-out; }
 .turn .q { display: inline-block; background: linear-gradient(180deg, #a87e26, #8f6a1e);
@@ -619,6 +629,9 @@ details.flash { outline: 2px solid var(--gold); outline-offset: 2px; }
   .panels { max-height: none; position: static; }
   .grid2 { grid-template-columns: 1fr; }
   .metrics { grid-template-columns: repeat(2, 1fr); }
+  .qa-split { grid-template-columns: 1fr; }
+  .qa-ref { position: static; }
+  .qa-report-frame, .qa-md-fallback { height: 44vh; max-height: 44vh; }
   .report-frame { height: 60vh; }
   .home-hero { padding: 24px; }
   .hh-mandala { display: none; }

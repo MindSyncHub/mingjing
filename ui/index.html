@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>一镜一梳 · 明镜 — 疗愈师 AI 工作台</title>
-<link rel="stylesheet" href="/style.css?v=0.3.1">
+<link rel="stylesheet" href="/style.css?v=0.3.2">
 </head>
 <body>
 <div class="shell">
@@ -189,10 +189,10 @@
       </div>
     </section>
 
-    <!-- 问答 -->
+    <!-- 问答（左参考：画作+报告；右对话） -->
     <section id="tab-qa" class="view">
-      <div class="narrow">
-        <div class="card qa-picker">
+      <div class="qa-split">
+        <div class="card qa-ref">
           <div class="grid2">
             <label>报告
               <span class="select-wrap"><select id="qa-report"></select></span>
@@ -204,11 +204,20 @@
               </select></span>
             </label>
           </div>
+          <div id="qa-ref-body">
+            <img id="qa-painting" class="qa-painting hidden" alt="画作"
+                 title="点击新标签查看原图">
+            <iframe id="qa-report-frame" class="qa-report-frame hidden" title="报告原文" loading="lazy"></iframe>
+            <div id="qa-report-md" class="md-view qa-md-fallback hidden"></div>
+            <p id="qa-ref-hint" class="hint">选择一份报告后，这里显示画作与报告原文——看着它们提问。</p>
+          </div>
         </div>
-        <div id="qa-flow" class="flow"></div>
-        <div class="card ask">
-          <textarea id="qa-question" rows="2" placeholder="输入问题…"></textarea>
-          <button id="btn-ask" class="btn-primary">提问</button>
+        <div class="qa-chat">
+          <div id="qa-flow" class="flow"></div>
+          <div class="card ask">
+            <textarea id="qa-question" rows="2" placeholder="看着左侧的画作与报告，输入问题…"></textarea>
+            <button id="btn-ask" class="btn-primary">提问</button>
+          </div>
         </div>
       </div>
     </section>
@@ -307,6 +316,6 @@
   </main>
 </div>
 
-<script src="/app.js?v=0.3.1"></script>
+<script src="/app.js?v=0.3.2"></script>
 </body>
 </html>

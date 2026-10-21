@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>明镜 · 疗愈师 AI 工作台 — 项目作品集</title>
+<meta name="description" content="明镜：面向疗愈师的 localhost AI 工作台。曼陀罗解读报告生成 + 报告问答，gen-audit 三步链，全链路可追溯。独立设计开发。">
+<link rel="stylesheet" href="./style.css">
+</head>
+<body>
+
+<!-- ================= Hero ================= -->
+<header class="hero">
+  <div class="hero-mandala" aria-hidden="true">
+    <svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="1.2">
+      <circle cx="60" cy="60" r="56" opacity=".85"/><circle cx="60" cy="60" r="44" opacity=".55"/>
+      <circle cx="60" cy="60" r="20" opacity=".8"/><circle cx="60" cy="60" r="7"/>
+      <g id="petals"></g>
+    </svg>
+  </div>
+  <p class="kicker">MANDALA AI WORKBENCH · PROJECT PORTFOLIO</p>
+  <h1>明镜</h1>
+  <p class="hero-sub">疗愈师 AI 工作台 —— 曼陀罗解读报告生成 + 报告问答</p>
+  <p class="hero-line">上传一幅曼陀罗绘画，视觉模型生成解读报告，第二条 AI 链路做合规红线与「超纲」核查，
+    疗愈师终审后交付。每一步 prompt 与产物落盘可追溯。</p>
+  <div class="hero-meta">
+    <span>独立设计开发（产品 · 工程 · 知识库 · 评测）</span>
+    <span>2026 · 持续迭代中</span>
+    <span>FastAPI + 原生 JS · 零框架零构建</span>
+  </div>
+  <nav class="hero-nav">
+    <a href="#product">产品形态</a><a href="#pipeline">核心链路</a><a href="#qa">报告问答</a>
+    <a href="#knowledge">知识底座</a><a href="#eval">质量评测</a><a href="#lens">三个视角</a>
+  </nav>
+</header>
+
+<main>
+
+<!-- ================= 产品形态 ================= -->
+<section id="product" class="sec">
+  <div class="sec-head reveal">
+    <p class="kicker">PRODUCT SHAPE</p>
+    <h2>一个完整的工作台，不只是两个 demo</h2>
+    <p class="sec-lead">左侧边栏按「工作台 / 服务 / 成长 / 系统」分组：<b>已上线</b>的解读、问答、知识图谱
+      与<b>规划中</b>的来访者、教学复盘、私教陪跑同栏呈现——完整产品形态本身就是设计能力的展示，
+      「规划中」徽标是诚实的 roadmap，不是伪装的功能。</p>
+  </div>
+  <figure class="shot reveal">
+    <img src="./assets/01-home.jpg" alt="明镜首页：问候、最近个案、AI 课程、产品地图" loading="lazy">
+    <figcaption>首页 dashboard：最近个案带来访者称呼；AI 课程是引流主线；产品地图声明模块关系——来访者为中心、智能体为工具、知识库为底座</figcaption>
+  </figure>
+  <div class="duo reveal">
+    <figure class="shot">
+      <img src="./assets/product-map.jpg" alt="产品地图插图：AI 课程获客 → 预约 → 个案进行 → 跟进 → 成长，底座知识库" loading="lazy">
+      <figcaption>产品地图：获客到成长的主线，全部落在知识库底座上</figcaption>
+    </figure>
+    <div class="note-card">
+      <h3>设计取舍</h3>
+      <p>规划中页面不堆空话：每个模块写清<b>定位、与现有功能的关系、排期依据</b>（精确到 D-xxx 决策编号）。「为什么现在不做」和「做了什么」一样，都是产品判断。</p>
+      <p>视觉系统是「东方外壳 + 精工内核」：米色鎏金与交付给来访者的报告同族，控件全部定制（拖拽上传、分段选择、定制下拉），零 emoji 图标。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 核心链路 ================= -->
+<section id="pipeline" class="sec">
+  <div class="sec-head reveal">
+    <p class="kicker">CORE PIPELINE</p>
+    <h2>gen-audit 三步链：生成 → 合规核查 → 确定性渲染</h2>
+    <p class="sec-lead">报告生成不追求一步到位的「聪明」，而是把<b>创造</b>与<b>核查</b>拆成两条独立的 AI 调用：
+      生成臂自由解读，审计臂只审合规红线并采掘「超纲」论断，最终判断永远在疗愈师。</p>
+  </div>
+  <figure class="shot reveal">
+    <img src="./assets/gen-audit-pipeline.jpg" alt="gen-audit 三步链插图：画作上传 → 报告生成 → 合规核查 → 渲染交付" loading="lazy">
+  </figure>
+  <div class="duo reveal">
+    <figure class="shot">
+      <img src="./assets/03-case-detail.jpg" alt="个案详情页：报告正文首屏，合规摘要，技术详情折叠" loading="lazy">
+      <figcaption>个案详情：疗愈师视角——报告正文即首屏；工程元数据折叠进「技术详情」，展开仍有全部深度</figcaption>
+    </figure>
+    <figure class="shot">
+      <img src="./assets/04-case-trace.jpg" alt="追溯链：三步卡的输入输出与耗时 token，audit.md 渲染成表格" loading="lazy">
+      <figcaption>追溯链：每步的 prompt 原文、产物文件、耗时与 token 全部可查；审计表渲染为终审草稿</figcaption>
+    </figure>
+  </div>
+  <div class="callout reveal">
+    <b>为什么审计臂只管合规？</b>它曾同时审「合规」与「质量」，实测幻觉判定假阳性率 94%——
+    于是收窄管辖权：合规红线它管，解读对错归还疗愈师终审，与知识库对不上的论断不判错、归为「超纲」采掘，
+    超纲清单反过来成为知识库增强的矿源。<span class="dtag">D-013</span>
+  </div>
+</section>
+
+<!-- ================= 报告问答 ================= -->
+<section id="qa" class="sec">
+  <div class="sec-head reveal">
+    <p class="kicker">REPORT QA</p>
+    <h2>看着画作和报告提问</h2>
+    <p class="sec-lead">问答助手服务两个真实场景：<b>解读参谋</b>（吃透报告）与<b>应答准备</b>（起草给来访者的话）。
+      左栏是画作与报告原文，右栏是对话——提问时证据就在眼前。回答锚定报告原文，超界内容主动标注。</p>
+  </div>
+  <figure class="shot reveal">
+    <img src="./assets/30-qa-split.jpg" alt="问答页：左栏画作与报告原文，右栏对话" loading="lazy">
+    <figcaption>问答工作台：参考区（画作 + 报告原文）随报告切换联动；空态给可点击的示例问题，失败可重试</figcaption>
+  </figure>
+  <div class="quote reveal">
+    <p class="quote-q">问：这份报告里，哪几条结论最需要我在面谈时先和小满核对？</p>
+    <p>「<b>第一优先：第二圈『讨好/迁就』的判断。</b>这条是从浅绿在中圈推出来的，属于对行为模式的推断，
+      报告正文没有对应的具体事件或来访者自述支撑。面谈时建议先问『最近一次和亲近的人有分歧，你当时是怎么做的』，
+      用她的实际描述来验证或修正，而不是直接把『讨好』当结论递过去。……以上核对建议是基于报告正文的应答组织，
+      不构成对来访者的评估结论。」</p>
+    <p class="quote-note">真实回答节选：锚定报告原句、给出核对方法、主动收口边界</p>
+  </div>
+</section>
+
+<!-- ================= 知识底座 ================= -->
+<section id="knowledge" class="sec">
+  <div class="sec-head reveal">
+    <p class="kicker">KNOWLEDGE BASE</p>
+    <h2>所有智能体共享的领域底座</h2>
+    <p class="sec-lead">本体语义层把疗愈知识建成图谱：23 个状态节点、44 条因果边、4 个层级，
+      每条边登记机制、理论锚、文献出处与置信级别。图谱是视图，边表才是源——一致性由脚本强制校验。</p>
+  </div>
+  <figure class="shot reveal">
+    <img src="./assets/10-knowledge.jpg" alt="知识库页：状态图谱可视化，23 节点 44 边" loading="lazy">
+    <figcaption>可交互图谱嵌入工作台：拖动节点、点击节点或边看机制说明；leads_to + underlies 子图无环由 check_ontology.py 校验</figcaption>
+  </figure>
+</section>
+
+<!-- ================= 质量评测 ================= -->
+<section id="eval" class="sec">
+  <div class="sec-head reveal">
+    <p class="kicker">EVALUATION</p>
+    <h2>质量不是感觉，是跑出来的数</h2>
+    <p class="sec-lead">评测是 CLI 工程链路，三层评定：红线回归 / 核心结论一致性 &gt;80% / 疗愈师人工终审。
+      所有数字可溯源到实验留痕。</p>
+  </div>
+  <div class="metrics reveal">
+    <div class="metric"><b>112 问</b><span>问答评测实测规模（106 出分）</span></div>
+    <div class="metric"><b>4.94 / 5</b><span>回答锚定率（LLM judge）</span></div>
+    <div class="metric"><b>0 / 38</b><span>安全越界专项违规</span></div>
+    <div class="metric"><b>8.4s</b><span>问答单轮延迟 P95（18 问轮）</span></div>
+    <div class="metric"><b>10 组</b><span>黄金集定稿图（三层评定）</span></div>
+    <div class="metric"><b>131</b><span>后端自动化测试</span></div>
+  </div>
+  <figure class="shot reveal">
+    <img src="./assets/11-eval.jpg" alt="质量评测页：指标与三层评定" loading="lazy">
+    <figcaption>工作台内的评测面板（部分可用）：面板化在规划中，数据来自最近一次实测</figcaption>
+  </figure>
+</section>
+
+<!-- ================= 工程决策 ================= -->
+<section id="decisions" class="sec">
+  <div class="sec-head reveal">
+    <p class="kicker">DECISIONS</p>
+    <h2>决策日志是这个项目的一等公民</h2>
+  </div>
+  <div class="dgrid reveal">
+    <div class="dcard">
+      <b>D-013 · 审计臂管辖权收窄</b>
+      <p>实测假阳性率 94% 后，审计臂从「找错员」改为「合规员 + 采掘员」——质量判断交还疗愈师，超纲清单变知识库矿源。</p>
+    </div>
+    <div class="dcard">
+      <b>D-015 → D-016 · 撤销自己的决策</b>
+      <p>「锚定事实层」上线三天被证明不可维护，新增 D-016 正式撤销 D-015。决策日志保留完整时间线，不掩饰。</p>
+    </div>
+    <div class="dcard">
+      <b>D-111 · 零框架零构建</b>
+      <p>工作台无 React、无 npm、无 CDN——一个 uvicorn 进程托管全部静态文件与 API。刻意约束，知道什么时候不引入复杂度。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 三个视角 ================= -->
+<section id="lens" class="sec">
+  <div class="sec-head reveal">
+    <p class="kicker">THREE LENSES</p>
+    <h2>同一个项目，三种读法</h2>
+  </div>
+  <div class="lgrid reveal">
+    <div class="lcard">
+      <h3>AI 产品经理</h3>
+      <ul>
+        <li>从疗愈师真实工作流拆产品形态：live 与规划中同栏，roadmap 即设计文档</li>
+        <li>「审计臂收窄」是把模型能力边界翻译成产品边界的实例</li>
+        <li>每个规划中模块带排期依据——优先级是判断，不是 backlog 顺序</li>
+      </ul>
+    </div>
+    <div class="lcard">
+      <h3>Agent 应用开发工程师</h3>
+      <ul>
+        <li>gen-audit 双臂架构：生成与核查职责分离，prompt 与产物全量落盘</li>
+        <li>确定性交给代码（OpenCV 预处理 / 渲染），判断留给模型与人</li>
+        <li>问答锚定率 4.94/5、越界 0/38，评测驱动迭代而非感觉驱动</li>
+      </ul>
+    </div>
+    <div class="lcard">
+      <h3>FDE / 交付工程师</h3>
+      <ul>
+        <li>领域知识工程化：本体图谱 + 校验脚本，知识库有护栏不是文档堆</li>
+        <li>单进程 localhost 交付：用户双击即用，部署复杂度压到零</li>
+        <li>131 个测试 + 决策日志 + 实验留痕：可交接、可审计、可回溯</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 边界 ================= -->
+<section id="boundary" class="sec">
+  <div class="boundary reveal">
+    <h2>边界与诚实</h2>
+    <p>明镜是<b>辅助工具</b>：不做诊断、不做承诺、不越界，危机信号立即转介，最终判断永远在疗愈师。
+      所有截图中的「来访者」均为演示数据；评测画作图像不进入版本库；个案数据不离开本机。
+      这个页面本身也一样克制：展示的是真实在跑的系统，截图即现状，没有为作品集单独做任何平时不存在的功能。</p>
+  </div>
+</section>
+
+</main>
+
+<footer class="foot">
+  <p>明镜 · 疗愈师 AI 工作台 — MindSyncHub · 2026</p>
+  <p class="foot-sub">技术栈：FastAPI · 原生 JS/CSS（零框架零构建零 CDN）· OpenCV · 视觉/文本双模型 · 本体知识图谱</p>
+</footer>
+
+<script>
+document.documentElement.classList.add('js');
+// 曼陀罗花瓣（与产品内同一母题，程序生成）
+(function () {
+  const g = document.getElementById('petals');
+  let s = '';
+  for (let i = 0; i < 12; i++) {
+    s += `<ellipse cx="60" cy="31" rx="7" ry="15" transform="rotate(${i * 30} 60 60)" opacity=".7"/>`;
+    const a = i * 30 * Math.PI / 180;
+    s += `<circle cx="${(60 + Math.sin(a) * 50).toFixed(1)}" cy="${(60 - Math.cos(a) * 50).toFixed(1)}" r="2" opacity=".8"/>`;
+  }
+  g.innerHTML = s;
+})();
+// 滚动淡入（无依赖）
+const io = new IntersectionObserver((es) => es.forEach((e) => {
+  if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+}), { threshold: 0.08 });
+document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+</script>
+</body>
+</html>

@@ -1130,8 +1130,39 @@ const QA_EXAMPLES = {
   reply_prep: ['帮我起草一段给来访者的开场解读，语气温和、不做承诺', '来访者问「我该怎么办」时，怎么回应才不越界？'],
 };
 
-$('qa-report').addEventListener('change', loadTurns);
+$('qa-report').addEventListener('change', () => { updateQaRef(); loadTurns(); });
 $('qa-scenario').addEventListener('change', loadTurns);
+
+/* 参考区：看着画作 + 报告原文提问（切换报告时联动；慢响应不得覆盖快的） */
+let qaRefSeq = 0;
+async function updateQaRef() {
+  const id = $('qa-report').value;
+  const painting = $('qa-painting'), frame = $('qa-report-frame'),
+        mdBox = $('qa-report-md'), hint = $('qa-ref-hint');
+  const showOnly = (el) => {
+    [painting, frame, mdBox, hint].forEach((x) => x.classList.add('hidden'));
+    if (el) el.classList.remove('hidden');
+  };
+  if (!id) { showOnly(hint); hint.textContent = '选择一份报告后，这里显示画作与报告原文——看着它们提问。'; return; }
+  const seq = ++qaRefSeq;
+  painting.src = '/ui/reports/' + encodeURIComponent(id) + '/image';
+  painting.onerror = () => painting.classList.add('hidden');
+  painting.onload = () => painting.classList.remove('hidden');
+  painting.onclick = () => window.open(painting.src, '_blank');
+  let d = null;
+  try { d = await api('/ui/reports/' + encodeURIComponent(id)); }
+  catch (err) { if (seq === qaRefSeq) { showOnly(hint); hint.textContent = '报告加载失败：' + err.message; } return; }
+  if (seq !== qaRefSeq) return;
+  if (d.has_report_html) {
+    frame.src = '/ui/reports/' + encodeURIComponent(id) + '/html';
+    showOnly(frame); painting.classList.remove('hidden');
+  } else if (d.report_md) {
+    mdBox.innerHTML = mdToHtml(d.report_md);
+    showOnly(mdBox); painting.classList.remove('hidden');
+  } else {
+    showOnly(hint); hint.textContent = '该 run 没有可显示的报告内容';
+  }
+}
 
 async function loadTurns() {
   const id = $('qa-report').value;
